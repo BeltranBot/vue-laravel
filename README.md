@@ -4,14 +4,14 @@ This is based on the example of [Devlob's Vue 2.0 and laravel 5.3 tutorial](http
 
 ## Set up
 
-### back-end
+### back-end (laravel 5.4)
 Once the repository is cloned, run 'composer install' on the back-end folder:
 
       cd vue-laravel
       cd back
       composer install
 
-create the '/back/.env' variable and set up the database connection variables, the database need to be created beforehand:
+Create the '/back/.env' variable and set up the database connection variables, the database need to be created beforehand:
 
       DB_DATABASE=database
       DB_USERNAME=username
@@ -29,7 +29,7 @@ Run the laravel server (the command console needs to be left open):
 
       php artisan serve
 
-### front-end
+### front-end (Vue.js 2.0)
 In the front-end folder, we run the npm install command:
 
       cd vue-laravel/front
