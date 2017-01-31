@@ -1,0 +1,12 @@
+front/.DS_Store
+front/node_modules/
+front/dist/
+front/npm-debug.log
+back/node_modules
+back/public/storage
+back/storage/*.key
+back/vendor
+back/.idea
+back/Homestead.json
+back/Homestead.yaml
+back/.env/
