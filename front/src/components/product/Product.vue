@@ -3,6 +3,7 @@
     <div class="thumbnail">
       <img src="https://cdn2.iconfinder.com/data/icons/virtual-keyboard/512/barcode-ean-code-item-coding-product-512.png" alt="">
       <div class="caption">
+        {{ product.user_id }}
         <h3>{{ product.name }}</h3>
         <p>{{ product.price }} </p>
         <p>
