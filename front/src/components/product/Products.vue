@@ -2,6 +2,7 @@
   <div class="row">
       <my-product
         v-for="product in products"
+        :authenticatedUser="authenticatedUser"
         :product="product">
       </my-product>
   </div>
@@ -11,7 +12,7 @@
   export default {
     data () {
       return {
-        products: []
+        products: [],
       }
     },
     created () {
@@ -19,6 +20,11 @@
           .then(response => {
             this.products = response.body
           })
+    },
+    computed: {
+      authenticatedUser() {
+        return this.$auth.getAuthenticatedUser()
+      }
     },
     components: {
       'my-product': Product
