@@ -3,23 +3,31 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
         <div class="panel-body">
-          <div class="form-group">
-            <label for="name">Name:</label>
-            <input type="text" class="form-control" v-model="product.name">
-          </div>
-          <div class="form-group">
-            <label for="price">Price:</label>
-            <input type="number" class="form-control" v-model="product.price">
-          </div>
-          <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea type="text" class="form-control" v-model="product.description"></textarea>
-          </div>
-          <button class="btn btn-success pull-right"
-            @click="create"
-            v-show="product.name && product.price && product.description">
-            Create
-          </button>
+          <form @submit.prevent="create">
+            <div class="form-group">
+              <label for="name">Name:</label>
+              <input name="name" type="text" class="form-control"
+                v-validate="'required'"
+                v-model="product.name">
+                <div class="help-block alert alert-danger" v-show="errors.has('name')">
+                  {{ errors.first('name') }}
+                </div>
+            </div>
+            <div class="form-group">
+              <label for="price">Price:</label>
+              <input name="price" type="number" class="form-control" v-model="product.price"
+                v-validate="'max_value:50|min_value:1'"
+                >
+              <div class="help-block alert alert-danger" v-show="errors.has('price')">
+                {{ errors.first('price') }}
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <textarea type="text" class="form-control" v-model="product.description"></textarea>
+            </div>
+            <input type="submit" class="btn btn-success pull-right" value="create">
+          </form>
         </div>
       </div>
     </div>
@@ -39,10 +47,20 @@ export default {
   },
   methods: {
     create () {
-      this.$http.post('api/products', this.product)
-          .then(response => {
-            this.$router.push('/feed');
-          });
+      this.$validator.updateDictionary({
+        'es': {
+          attributes: {
+            name: "nombre",
+          }
+        }
+      })
+      this.$validator.setLocale('es')
+      this.$validator.validateAll().then(() => {
+        this.$http.post('api/products', this.product)
+            .then(response => {
+              this.$router.push('/feed');
+            });
+      })
     }
   }
 }
